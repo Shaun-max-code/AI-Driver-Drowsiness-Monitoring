@@ -1,0 +1,11 @@
+venv/
+venv310/
+mqtt_env/
+
+__pycache__/
+*.pyc
+
+*.db
+
+certs/
+.env
