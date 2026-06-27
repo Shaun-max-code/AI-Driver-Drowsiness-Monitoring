@@ -1,24 +1,29 @@
 import cv2
+import time
+
 from src.camera import Camera
-from src.face_detection import FaceDetector
+from src.face_landmarker import FaceLandmarker
 
 
 def main():
+
     camera = Camera()
-    detector = FaceDetector()   # <-- Create the detector
+    landmarker = FaceLandmarker()
 
     while True:
+
         frame = camera.read()
 
         if frame is None:
             break
 
-        # Detect faces
-        frame = detector.detect(frame)
+        timestamp = int(time.time() * 1000)
+
+        result = landmarker.detect(frame, timestamp)
 
         cv2.putText(
             frame,
-            "AI Driver Drowsiness Monitoring",
+            f"Faces: {len(result.face_landmarks)}",
             (20, 40),
             cv2.FONT_HERSHEY_SIMPLEX,
             1,
@@ -28,9 +33,7 @@ def main():
 
         cv2.imshow("AI Driver Monitoring", frame)
 
-        key = cv2.waitKey(1)
-
-        if key == 27:  # ESC
+        if cv2.waitKey(1) == 27:
             break
 
     camera.release()
