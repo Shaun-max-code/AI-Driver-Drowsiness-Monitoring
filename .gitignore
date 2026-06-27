@@ -1,11 +1,21 @@
+# Virtual environments
+.venv/
 venv/
 venv310/
 mqtt_env/
 
+# Python
 __pycache__/
 *.pyc
 
+# Database
 *.db
 
-certs/
+# Environment files
 .env
+
+# Certificates
+certs/
+
+# VS Code
+.vscode/
