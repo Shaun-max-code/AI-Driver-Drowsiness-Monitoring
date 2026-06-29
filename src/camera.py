@@ -1,22 +1,23 @@
 import cv2
 
 class Camera:
-    def __init__(self, camera_index=0, width=1280, height=720):
-        self.cap = cv2.VideoCapture(camera_index)
+
+    def __init__(self, index=0):
+        self.cap = cv2.VideoCapture(index)
+
+        self.cap.set(cv2.CAP_PROP_FRAME_WIDTH, 640)
+        self.cap.set(cv2.CAP_PROP_FRAME_HEIGHT, 480)
 
         if not self.cap.isOpened():
-            raise RuntimeError("Could not open webcam.")
-
-        self.cap.set(cv2.CAP_PROP_FRAME_WIDTH, width)
-        self.cap.set(cv2.CAP_PROP_FRAME_HEIGHT, height)
+            raise RuntimeError("Could not open camera.")
 
     def read(self):
-        success, frame = self.cap.read()
+        ret, frame = self.cap.read()
 
-        if not success:
+        if not ret:
             return None
 
-        return frame
+        return cv2.flip(frame, 1)
 
     def release(self):
         self.cap.release()
