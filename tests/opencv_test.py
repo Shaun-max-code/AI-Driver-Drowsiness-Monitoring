@@ -2,21 +2,8 @@ import cv2
 
 cap = cv2.VideoCapture(0)
 
-print("Opened:", cap.isOpened())
+ret, frame = cap.read()
 
-while True:
-    ret, frame = cap.read()
-
-    if not ret:
-        print("Failed to read")
-        break
-
-    print(frame.shape, frame.dtype)
-
-    cv2.imshow("OpenCV Test", frame)
-
-    if cv2.waitKey(1) & 0xFF == 27:
-        break
+print(frame[240, 320])
 
 cap.release()
-cv2.destroyAllWindows()

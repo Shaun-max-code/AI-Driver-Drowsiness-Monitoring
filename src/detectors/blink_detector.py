@@ -6,13 +6,10 @@ class BlinkDetector:
     def __init__(self):
 
         self.EAR_THRESHOLD = 0.22
-
         self.MIN_FRAMES = 3
 
         self.closed_frames = 0
-
         self.eye_closed = False
-
         self.blink_count = 0
 
     def calculate_ear(self, eye):
@@ -30,18 +27,19 @@ class BlinkDetector:
             self.closed_frames += 1
 
             if self.closed_frames >= self.MIN_FRAMES:
-
                 self.eye_closed = True
 
         else:
 
             if self.eye_closed:
-
                 self.blink_count += 1
 
             self.eye_closed = False
-
             self.closed_frames = 0
+
+    def is_eye_closed(self):
+
+        return self.eye_closed
 
     def get_count(self):
 
